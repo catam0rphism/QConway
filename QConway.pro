@@ -3,6 +3,10 @@ QT += core gui widgets
 TEMPLATE = app
 TARGET = QConway
 
-CONFIG += -std=c++1y
+QMAKE_CXXFLAGS += -std=c++1y
 
-SOURCES += main.cpp
+HEADERS += config.h
+
+SOURCES += main.cpp \
+	config.cpp
+	
