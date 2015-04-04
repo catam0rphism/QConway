@@ -1,9 +1,11 @@
 #include <QApplication>
+#include <QDebug>
 
-#include "iostream"
-
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
-	std::cout << "hello" << std::endl;
-	return 1;
+	QApplication app(argc,argv);
+
+	qDebug() << "42";
+
+	return app.exec();
 }
