@@ -1,11 +1,17 @@
+// Copyright 2015 Belkin Dmitriy
 #include <QApplication>
 #include <QDebug>
 
-int main(int argc, char *argv[])
-{
-	QApplication app(argc,argv);
+#include "config.h"
 
-	qDebug() << "42";
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
 
-	return app.exec();
+    Config* tmp = Config::getConfig();
+    tmp->test = "new foo";
+    Config::setConfig(tmp);
+
+    qDebug() << Config::getConfig()->test;
+
+    return app.exec();
 }
