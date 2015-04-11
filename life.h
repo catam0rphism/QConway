@@ -29,7 +29,12 @@ class Life {
     QBitArray field;
     QSet<int> pretendentSet;
 
-    void doArea(int x, int y, std::function<void(bool)> f,int radius = 1);
+    void doArea(int x, int y,
+        std::function<void(bool, int, int)> f, int radius = 1);
+    void doArea(int x, int y,
+        std::function<void(int, int)> f, int radius = 1);
+    void doArea(int x, int y,
+        std::function<void(bool)> f, int radius = 1);
 };
 
 #endif
