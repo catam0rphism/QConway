@@ -28,6 +28,9 @@ class Life {
 
     QBitArray field;
     QSet<int> pretendentSet;
+    QSet<int> changedSet;
+
+    void handleCell(int x, int y);
 
     void doArea(int x, int y,
         std::function<void(bool, int, int)> f, int radius = 1);
