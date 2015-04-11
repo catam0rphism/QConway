@@ -2,7 +2,10 @@
 #include "life.h"
 
 Life::Life(int width, int height) {
-    QBitArray field(width * height);
+    this->field = QBitArray(width * height);
+    this->field.fill(false);
+
+    this->fieldSize = QSize(width, height);
     // QSet<int> pretendentSet;
 }
 
@@ -32,5 +35,5 @@ void Life::setCell(int x, int y, bool value) {
     x %= fieldSize.width();
     y %= fieldSize.height();
 
-    field.setBit(ind(x, y), value);
+    field[ind(x, y)] = value;
 }
