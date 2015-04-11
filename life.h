@@ -2,15 +2,18 @@
 #ifndef LIFE_H
 #define LIFE_H
 
+#include "functional"
+
 #include <QBitArray>
 #include <QPoint>
 #include <QSize>
 #include <QSet>
+#include <QVector>
 
 class Life {
  public:
     Life(int width, int height);
-    ~Life();
+    // ~Life();
 
     // do it immutable?
     void step();
@@ -23,8 +26,10 @@ class Life {
 
     QSize fieldSize;
 
-    QBitArray* field;
-    QSet<QPoint>* pretendentSet;
+    QBitArray field;
+    QSet<int> pretendentSet;
+
+    void doArea(int x, int y, std::function<void(bool)> f,int radius = 1);
 };
 
 #endif

@@ -2,20 +2,35 @@
 #include "life.h"
 
 Life::Life(int width, int height) {
-    field = new QBitArray(width * height);
-    pretendentSet = nullptr;
+    QBitArray field(width * height);
+    // QSet<int> pretendentSet;
 }
 
-int Life::ind(int x, int y) {
-    if (y < fieldSize.height() && x < fieldSize.width()) {
+inline int Life::ind(int x, int y) {
+    // if (y < fieldSize.height() && x < fieldSize.width()) {
         return fieldSize.width() * y + x;
-    }
-    throw;
+    // }
+    // throw;
 }
 
 bool Life::getCell(int x, int y) {
-    return field->at(ind(x, y));
+    // fix bug with mod function
+    if (x < 0) x += fieldSize.width();
+    if (y < 0) y += fieldSize.height();
+
+    x %= fieldSize.width();
+    y %= fieldSize.height();
+
+    return field[ind(x, y)];
 }
 
-void Life::step() {
+void Life::setCell(int x, int y, bool value) {
+    // fix bug with mod function
+    if (x < 0) x += fieldSize.width();
+    if (y < 0) y += fieldSize.height();
+
+    x %= fieldSize.width();
+    y %= fieldSize.height();
+
+    field.setBit(ind(x, y), value);
 }
