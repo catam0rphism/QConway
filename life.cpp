@@ -75,6 +75,11 @@ void Life::step() {
                     doArea(i, j, [this](int x, int y) {
                         this->pretendentSet.insert(ind(x, y));
                     });
+                } else if (!getCell(i, j) && aliveCount == 3) {
+                    setCell(i, j, true);
+                    doArea(i, j, [this](int x, int y) {
+                        this->pretendentSet.insert(ind(x, y));
+                    });
                 }
             }
         }
