@@ -14,13 +14,6 @@ Life::Life(int width, int height) {
 }
 
 inline int Life::ind(int x, int y) {
-    // if (y < fieldSize.height() && x < fieldSize.width()) {
-        return fieldSize.width() * y + x;
-    // }
-    // throw;
-}
-
-bool Life::getCell(int x, int y) {
     // fix bug with mod function
     while (x < 0) x += fieldSize.width();
     while (y < 0) y += fieldSize.height();
@@ -28,6 +21,10 @@ bool Life::getCell(int x, int y) {
     x %= fieldSize.width();
     y %= fieldSize.height();
 
+    return fieldSize.width() * y + x;
+}
+
+bool Life::getCell(int x, int y) {
     return field[ind(x, y)];
 }
 
