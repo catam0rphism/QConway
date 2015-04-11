@@ -18,8 +18,8 @@ inline int Life::ind(int x, int y) {
 
 bool Life::getCell(int x, int y) {
     // fix bug with mod function
-    if (x < 0) x += fieldSize.width();
-    if (y < 0) y += fieldSize.height();
+    while (x < 0) x += fieldSize.width();
+    while (y < 0) y += fieldSize.height();
 
     x %= fieldSize.width();
     y %= fieldSize.height();
@@ -29,8 +29,8 @@ bool Life::getCell(int x, int y) {
 
 void Life::setCell(int x, int y, bool value) {
     // fix bug with mod function
-    if (x < 0) x += fieldSize.width();
-    if (y < 0) y += fieldSize.height();
+    while (x < 0) x += fieldSize.width();
+    while (y < 0) y += fieldSize.height();
 
     x %= fieldSize.width();
     y %= fieldSize.height();
