@@ -5,10 +5,11 @@ TARGET = QConway
 
 QMAKE_CXXFLAGS += -std=c++1y
 
-HEADERS += config.h \
-	life.h
+HEADERS += core/config.h \
+	core/life.h \
+    gui/fieldWidget.h
 
 SOURCES += main.cpp \
-	config.cpp \
-	life.cpp
+	core/config.cpp \
+	core/life.cpp
 	
