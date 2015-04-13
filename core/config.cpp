@@ -5,7 +5,7 @@ Config* Config::_conf = nullptr;
 QMutex Config::mutex;
 
 Config* Config::getConfig() {
-    if (_conf == NULL) {
+    if (_conf == nullptr) {
         _conf = new Config();
     }
     return _conf;
