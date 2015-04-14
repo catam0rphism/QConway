@@ -12,5 +12,6 @@ HEADERS += core/config.h \
 SOURCES += main.cpp \
 	core/config.cpp \
 	core/life.cpp \
-    gui/qfieldWidget.cpp
+    gui/qfieldWidget.cpp \
+    gui/interfaces.cpp
 	

@@ -22,6 +22,4 @@ void Config::setConfig(Config* conf) {
     Config::mutex.unlock();
 }
 
-Config::Config() {
-    test = "foo";
-}
+Config::Config() { /* TODO: Init field */ }
