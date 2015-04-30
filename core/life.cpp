@@ -1,9 +1,8 @@
 // Copyright 2015 Belkin Dmitriy
 #include "life.h"
-#include <iostream>
 using namespace std;
 
-Life::Life(int width, int height) {
+Life::Life(const int& width, const int& height) {
     this->field = QBitArray(width * height);
     this->field.fill(false);
 

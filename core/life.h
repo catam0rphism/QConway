@@ -12,7 +12,7 @@
 
 class Life {
  public:
-    Life(int width, int height);
+    Life(const int& width, const int& height);
     // ~Life();
 
     // do it immutable?

@@ -5,29 +5,19 @@
 #include <QSize>
 #include <QString>
 #include <QMutex>
+#include <QSharedPointer>
 
-#include "../gui/interfaces.cpp"
+#include "../gui/fieldwidgetproperty.h"
 
 // TODO: test QMutex :)
-
-class Config: public IFieldWidgetProperty {
+class Config {
  public:
     static Config* getConfig();
     static void setConfig(Config* conf);
 
-    int cellWidth() { return _cellWidth; }
-    QSize fieldSize() { return _fieldSize; }
+    QSharedPointer<FieldWidgetProperty> fwProp;
 
-    void set_cellWidth(int cellWidth) {
-        _cellWidth = cellWidth;
-        emit cellWidthChanged(cellWidth);
-    }
-
-    void set_fieldSize(QSize fieldSize) {
-        _fieldSize = fieldSize;
-        emit fieldSizeChanged(fieldSize);
-    }
-
+    ~Config();
  private:
     Config();
 
@@ -37,5 +27,6 @@ class Config: public IFieldWidgetProperty {
     int _cellWidth;
     QSize _fieldSize;
 };
+
 
 #endif

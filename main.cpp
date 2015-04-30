@@ -1,43 +1,55 @@
 // Copyright 2015 Belkin Dmitriy
 #include <QApplication>
+#include <QMainWindow>
 #include <QDebug>
+#include <QPainter>
 
 #include "iostream"
 
-#include "config.h"
-#include "life.h"
+#include "core/config.h"
+#include "core/life.h"
+#include "gui/qfieldWidget.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    Config* tmp = Config::getConfig();
-    tmp->test = "new foo";
-    Config::setConfig(tmp);
 
-    qDebug() << Config::getConfig()->test << endl;
+    // QMainWindow window;
+    QFieldWidget f;
 
-    Life life(10, 10);
-    life.setCell(0, 0, true);
-    life.setCell(0, 1, true);
-    life.setCell(0, 2, true);
-    life.setCell(2, 1, true);
-    life.setCell(1, 2, true);
+    f.life->setCell(0, 0, true);
+    f.life->setCell(0, 1, true);
+    f.life->setCell(0, 2, true);
+    f.life->setCell(2, 1, true);
+    f.life->setCell(1, 2, true);
 
-    int N = 20;
-    while (N-->0) {
-        for (int i = 0; i < 10; ++i) {
-            for (int j = 0; j < 10; ++j) {
-                cout << (life.getCell(i, j) ? '0' : '.');
-            }
-            cout << endl;
-        }
+    // window.show();
+     f.show();
+     f.start();
 
-        cout << endl << endl;
+     // for (int i = 1; i <= 100000000; i++) {
+     Config::getConfig()->fwProp->setStepInterval(50);
+     // }
 
-        life.step();
-    }
+    // Config* tmp = Config::getConfig();
+    // tmp->test = "new foo";
+    // Config::setConfig(tmp);
+
+    // qDebug() << Config::getConfig()->test << endl;
+    // int N = 20000;
+    // while (N-->0) {
+    //     for (int i = 0; i < 10; ++i) {
+    //         for (int j = 0; j < 10; ++j) {
+    //             cout << (life.getCell(i, j) ? '0' : '.');
+    //         }
+    //         cout << endl;
+    //     }
+    //     system("read");
+        
+    //     life.step();
+    // }
 
 
     return app.exec();

@@ -4,23 +4,35 @@
 
 #include <QWidget>
 #include <QPainter>
-
-#include "interfaces.cpp"
+#include <QTimer>
 
 typedef QSize FieldSize;  // field size (in cells)
+
+#include "fieldwidgetproperty.h"
+#include "../core/life.h"
 
 class QFieldWidget: public QWidget {
     Q_OBJECT
 
  public:
-    QFieldWidget(IFieldWidgetProperty* propertyProvider);
+    QFieldWidget();
+    Life* life;
+
+    ~QFieldWidget();
+    void start();
+
+ private slots:
+    void updateSize();
+    void updateInterval();
+    void nextStep();
 
  protected:
     // TODO: wtf?
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
 
  private:
-    IFieldWidgetProperty* propertyProvider;
+    FieldWidgetProperty& propertyProvider;
+    QTimer* timer;
 };
 
 #endif  // QFIELD_WIDGET_H

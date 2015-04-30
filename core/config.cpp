@@ -14,7 +14,7 @@ Config* Config::getConfig() {
 void Config::setConfig(Config* conf) {
     Config::mutex.lock();
 
-    if (conf == NULL) {
+    if (conf == nullptr) {
         // user try to set null config =)
     }
     // TODO do copy of conf
@@ -22,4 +22,14 @@ void Config::setConfig(Config* conf) {
     Config::mutex.unlock();
 }
 
-Config::Config() { /* TODO: Init field */ }
+Config::Config() {
+    /* TODO: Init field */ 
+    fwProp = QSharedPointer<FieldWidgetProperty>(
+        new FieldWidgetProperty());
+    // fwProp->setFieldSize(QSize(5,5));
+    // fwProp->setCellWidth(10);
+}
+Config::~Config() { 
+    // delete _conf;
+    _conf = nullptr;
+}
