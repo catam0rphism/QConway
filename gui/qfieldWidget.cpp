@@ -1,14 +1,23 @@
 // Copyright 2015 Belkin Dmitriy
 #include "qfieldWidget.h"
 
-QFieldWidget::QFieldWidget(FieldWidgetProperty* propertyProvider) {
+QFieldWidget::QFieldWidget(FieldWidgetProperty* propertyProvider, ConfigureForm* cf) {
     this->propertyProvider = propertyProvider;
-
-
     timer = new QTimer(this);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
-    connect(propertyProvider, SIGNAL(configChanged()), this, SLOT(updateInterval()));
+    connect(propertyProvider, SIGNAL(stepIntervalChanged(int)), this, SLOT(updateInterval()));
+    connect(propertyProvider,SIGNAL(fieldSizeChanged(FieldSize)),this,SLOT(updateSize()));
+
+    updateSize();
+    updateInterval();
+
+}
+
+void QFieldWidget::toggleState()
+{
+    if (timer->isActive()) timer->stop();
+    else timer->start();
 }
 
 QFieldWidget::~QFieldWidget() {
@@ -22,7 +31,7 @@ void QFieldWidget::updateSize() {
 
     int w = propertyProvider->fieldSize().width();
     int h = propertyProvider->fieldSize().height();
- 
+
     this->life = new Life(w, h);
 }
 
@@ -41,8 +50,6 @@ void QFieldWidget::start() {
 
 void QFieldWidget::paintEvent(QPaintEvent *) {
     QPainter painter(this);
-    // painter.setFont(QFont("Arial", 30));
-    // painter.drawText(rect(), Qt::AlignCenter, "Hello, world!");
 
     resize(propertyProvider->fieldSize() * propertyProvider->cellWidth());
 
@@ -61,16 +68,25 @@ void QFieldWidget::paintEvent(QPaintEvent *) {
             int y = j * cellWidth;
 
             painter.fillRect(x, y, cellWidth, cellWidth,
-                life->getCell(i,j) ? aliveBrush : deadBrush);
+                             life->getCell(i,j) ? aliveBrush : deadBrush);
         }
     }
+    if (propertyProvider->isDrawBorders()) {
+        painter.setPen(Qt::gray);
+        for (int i = 0; i <= w; ++i) {
+            painter.drawLine(i * cellWidth, 0, i * cellWidth, h * cellWidth);
+        }
 
-    // painter.setPen(Qt::blue);
-    // for (int i = 0; i <= w; ++i) {
-    //     painter.drawLine(i * cellWidth, 0, i * cellWidth, h * cellWidth);
-    // }
+        for (int i = 0; i <= h; ++i) {
+            painter.drawLine(0, i * cellWidth, w * cellWidth, i * cellWidth);
+        }
+    }
+}
 
-    // for (int i = 0; i <= h; ++i) {
-    //     painter.drawLine(0, i * cellWidth, w * cellWidth, i * cellWidth);
-    // }
+void QFieldWidget::mousePressEvent(QMouseEvent *event) {
+    int x = event->x() / propertyProvider->cellWidth();
+    int y = event->y() / propertyProvider->cellWidth();
+
+    bool cellState = life->getCell(x,y);
+    life->setCell(x,y,!cellState);
 }

@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QSize>
 #include <QColor>
-#include <QMutex>
 
 typedef QSize FieldSize;
 
@@ -23,8 +22,12 @@ class FieldWidgetProperty: public QObject {
     int stepInterval();
     void setStepInterval(int interval);
 
+    bool isDrawBorders();
+    void setIsDrawBorders(bool state);
+
  signals:
     void configChanged();
+    void isDrawBordersChanged(bool state);
     void fieldSizeChanged(FieldSize size);
     void cellWidthChanged(int cellWidth);
     void stepIntervalChanged(int interval);
@@ -33,8 +36,7 @@ class FieldWidgetProperty: public QObject {
     int _cellWidth;
     FieldSize _fieldSize;
     int _stepInterval;
-
-    QMutex mutex;
+    bool _borders;
 };
 
 #endif  // FIELDWIDGETPROPERTY_H

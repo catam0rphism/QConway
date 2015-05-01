@@ -5,17 +5,19 @@
 #include <QWidget>
 #include <QPainter>
 #include <QTimer>
+#include <QMouseEvent>
 
 typedef QSize FieldSize;  // field size (in cells)
 
 #include "fieldwidgetproperty.h"
+#include "configureform.h"
 #include "../core/life.h"
 
 class QFieldWidget: public QWidget {
     Q_OBJECT
 
  public:
-    QFieldWidget();
+    QFieldWidget(FieldWidgetProperty* propertyProvider, ConfigureForm* cf);
     Life* life;
 
     ~QFieldWidget();
@@ -25,13 +27,15 @@ class QFieldWidget: public QWidget {
     void updateSize();
     void updateInterval();
     void nextStep();
+    void toggleState();
 
  protected:
     // TODO: wtf?
     void paintEvent(QPaintEvent* event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent* event) Q_DECL_OVERRIDE;
 
  private:
-    FieldWidgetProperty& propertyProvider;
+    FieldWidgetProperty* propertyProvider;
     QTimer* timer;
 };
 

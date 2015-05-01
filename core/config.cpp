@@ -25,7 +25,7 @@ void Config::setConfig(Config* conf) {
 Config::Config() {
     /* TODO: Init field */ 
     fwProp = QSharedPointer<FieldWidgetProperty>(
-        new FieldWidgetProperty());
+                new FieldWidgetProperty());
     // fwProp->setFieldSize(QSize(5,5));
     // fwProp->setCellWidth(10);
 }
