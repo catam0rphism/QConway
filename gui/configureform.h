@@ -19,11 +19,12 @@ public:
 public slots:
     void saveConfig();
 
-signals:
-    void gameStateToggled();
+private slots:
+    void on_pushButton_2_clicked();
 
 private:
     Ui::ConfigureForm *ui;
+    bool _lifeState = false;
 };
 
 #endif // CONFIGUREFORM_H

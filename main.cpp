@@ -3,22 +3,25 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QPainter>
+#include <QWidget>
 
 #include "iostream"
 
 #include "core/config.h"
 #include "core/life.h"
 #include "gui/qfieldWidget.h"
+#include "gui/configureform.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
+    // Все есть ужас, навеяный пропитым дедлайном.
 
     // QMainWindow window;
     ConfigureForm conf;
-    QFieldWidget f(Config::getConfig()->fwProp.data(), *conf);
+    QFieldWidget f(Config::getConfig()->fwProp.data());
 
     f.life->setCell(0, 0, true);
     f.life->setCell(0, 1, true);
@@ -30,7 +33,7 @@ int main(int argc, char *argv[]) {
     f.show();
     f.start();
 
-//    conf.show();
+    conf.show();
 
     return app.exec();
 }

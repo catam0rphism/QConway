@@ -40,3 +40,16 @@ ConfigureForm::~ConfigureForm()
 {
     delete ui;
 }
+
+void ConfigureForm::on_pushButton_2_clicked()
+{
+    if(_lifeState) {
+        _lifeState = false;
+        ui->pushButton_2->setText("stop");
+    } else {
+        _lifeState = true;
+        ui->pushButton_2->setText("start");
+    }
+
+    emit Config::getConfig()->fwProp.data()->gameStateToggled();
+}

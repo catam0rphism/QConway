@@ -17,7 +17,7 @@ class QFieldWidget: public QWidget {
     Q_OBJECT
 
  public:
-    QFieldWidget(FieldWidgetProperty* propertyProvider, ConfigureForm* cf);
+    QFieldWidget(FieldWidgetProperty* propertyProvider);
     Life* life;
 
     ~QFieldWidget();
@@ -37,6 +37,7 @@ class QFieldWidget: public QWidget {
  private:
     FieldWidgetProperty* propertyProvider;
     QTimer* timer;
+    QSize currFieldSize;
 };
 
 #endif  // QFIELD_WIDGET_H

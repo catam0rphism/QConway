@@ -31,6 +31,7 @@ class FieldWidgetProperty: public QObject {
     void fieldSizeChanged(FieldSize size);
     void cellWidthChanged(int cellWidth);
     void stepIntervalChanged(int interval);
+    void gameStateToggled();
 
  private:
     int _cellWidth;

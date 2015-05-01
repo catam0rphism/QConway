@@ -1,13 +1,15 @@
 // Copyright 2015 Belkin Dmitriy
 #include "qfieldWidget.h"
 
-QFieldWidget::QFieldWidget(FieldWidgetProperty* propertyProvider, ConfigureForm* cf) {
+QFieldWidget::QFieldWidget(FieldWidgetProperty* propertyProvider) {
     this->propertyProvider = propertyProvider;
     timer = new QTimer(this);
 
     connect(timer, SIGNAL(timeout()), this, SLOT(nextStep()));
     connect(propertyProvider, SIGNAL(stepIntervalChanged(int)), this, SLOT(updateInterval()));
     connect(propertyProvider,SIGNAL(fieldSizeChanged(FieldSize)),this,SLOT(updateSize()));
+
+    connect(propertyProvider,SIGNAL(gameStateToggled()),this,SLOT(toggleState()));
 
     updateSize();
     updateInterval();
@@ -27,6 +29,8 @@ QFieldWidget::~QFieldWidget() {
 }
 
 void QFieldWidget::updateSize() {
+    if(propertyProvider->fieldSize() == currFieldSize) return;
+    currFieldSize = propertyProvider->fieldSize();
     resize(propertyProvider->fieldSize() * propertyProvider->cellWidth());
 
     int w = propertyProvider->fieldSize().width();
@@ -71,6 +75,7 @@ void QFieldWidget::paintEvent(QPaintEvent *) {
                              life->getCell(i,j) ? aliveBrush : deadBrush);
         }
     }
+
     if (propertyProvider->isDrawBorders()) {
         painter.setPen(Qt::gray);
         for (int i = 0; i <= w; ++i) {
@@ -89,4 +94,6 @@ void QFieldWidget::mousePressEvent(QMouseEvent *event) {
 
     bool cellState = life->getCell(x,y);
     life->setCell(x,y,!cellState);
+
+    update();
 }
